@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Watson Orchestrate Widget</title>
+</head>
+<body>
+  <div id="root"></div>
+  <div id="wxo-chat-root"></div>
+  <script>
+    const API_KEY = "kIpXGhM2tFx01uJg5zaBB9e0boONsGFlVQ2VJGIEJQBG";
+    
+    // Function to get IAM token from IBM Cloud
+    async function getIAMToken() {
+  try {
+    const response = await fetch('http://localhost:3001/api/token');
+    const data = await response.json();
+    return data.access_token;
+  } catch (error) {
+    console.error('Error fetching IAM token:', error);
+    throw error;
+  }
+}
+    // Initialize Watson Orchestrate with token
+    async function initWatsonOrchestrate() {
+      const token = await getIAMToken();
+      
+      window.wxOConfiguration = {
+        orchestrationID: "1065dee239e14260bb0fb7eca222264a_08d40cb2-d9c5-44b3-8e11-869e8e97957b",
+        hostURL: "https://ca-tor.watson-orchestrate.cloud.ibm.com",
+        rootElementID: "wxo-chat-root",
+        deploymentPlatform: "ibmcloud",
+        crn: "crn:v1:bluemix:public:watsonx-orchestrate:ca-tor:a/1065dee239e14260bb0fb7eca222264a:08d40cb2-d9c5-44b3-8e11-869e8e97957b::",
+        authToken: token, // Provide token upfront
+        openOnLoad: true,
+        chatOptions: {
+          agentId: "f2045a6d-fb12-4486-aad4-8c80ee5fc3d8",
+          agentEnvironmentId: "e35ad620-adde-4f4f-8106-36e07d7c0d0e",
+          openOnLoad: true,
+        },
+        // Refresh token when needed
+        onAuthTokenNeeded: async function(event) {
+          try {
+            const newToken = await getIAMToken();
+            event.authToken = newToken;
+            console.log('IAM token refreshed successfully');
+          } catch (error) {
+            console.error('Failed to refresh IAM token:', error);
+          }
+        }
+      };
+      
+      const script = document.createElement('script');
+      script.src = window.wxOConfiguration.hostURL + '/wxochat/wxoLoader.js?embed=true';
+      script.addEventListener('load', function () {
+        console.log('Watson Orchestrate loader script loaded');
+        wxoLoader.init();
+        
+        // Use MutationObserver to watch for chat button
+        const observer = new MutationObserver(function(mutations) {
+          const rootElement = document.getElementById('wxo-chat-root');
+          if (rootElement) {
+            // Look for any button element
+            const buttons = rootElement.querySelectorAll('button, [role="button"], .launcher, [class*="launch"]');
+            console.log('Found buttons:', buttons.length);
+            
+            buttons.forEach(function(btn, index) {
+              console.log('Button', index, ':', btn.className, btn.getAttribute('aria-label'));
+            });
+            
+            if (buttons.length > 0) {
+              // Click the first button (usually the launcher)
+              buttons[0].click();
+              console.log('Clicked launcher button');
+              observer.disconnect(); // Stop observing
+            }
+          }
+        });
+        
+        // Start observing
+        observer.observe(document.getElementById('wxo-chat-root'), {
+          childList: true,
+          subtree: true
+        });
+        
+        // Also try after a delay
+        setTimeout(function() {
+          const rootElement = document.getElementById('wxo-chat-root');
+          const buttons = rootElement.querySelectorAll('button, [role="button"]');
+          if (buttons.length > 0) {
+            buttons[0].click();
+            console.log('Clicked button after timeout');
+          }
+        }, 3000);
+      });
+      script.addEventListener('error', function(error) {
+        console.error('Failed to load Watson Orchestrate script:', error);
+      });
+      document.head.appendChild(script);
+    }
+    
+    // Start initialization
+    initWatsonOrchestrate().catch(error => {
+      console.error('Failed to initialize Watson Orchestrate:', error);
+    });
+  </script>
+</body>
+</html>

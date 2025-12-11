@@ -1,0 +1,743 @@
+[
+  {
+    "taskId": "POC1",
+    "taskName": "Test Task",
+    "customerId": "CUST001",
+    "mapName": "MAP001",
+    "priority": "high",
+    "vehicleIds": [
+      "VEH1"
+    ],
+    "order": {
+      "nodes": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    "status": "pending",
+    "createdAt": "2025-12-09T09:07:09.398Z"
+  },
+  {
+    "taskId": "POC2",
+    "taskName": "task1",
+    "customerId": "infosys",
+    "mapName": "infosys",
+    "priority": "high",
+    "order": {
+      "nodes": [
+        {
+          "name": "living lab"
+        },
+        {
+          "name": "building 39"
+        }
+      ]
+    },
+    "status": "pending",
+    "createdAt": "2025-12-09T16:01:23.554Z"
+  },
+  {
+    "taskId": "POC3",
+    "taskName": "Test Task5",
+    "customerId": "CUST001",
+    "mapName": "MAP001",
+    "priority": "high",
+    "vehicleIds": [
+      "VEH1"
+    ],
+    "order": {
+      "nodes": [
+        {
+          "nodeId": "A",
+          "position": {
+            "x": 1,
+            "y": 2,
+            "z": 0
+          },
+          "orientation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "actions": [
+            {
+              "actionId": "pickup_A",
+              "actionType": "pick",
+              "blockingType": "HARD"
+            }
+          ]
+        },
+        {
+          "nodeId": "B",
+          "position": {
+            "x": 3,
+            "y": 4,
+            "z": 0
+          },
+          "orientation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "actions": [
+            {
+              "actionId": "navigate_B",
+              "actionType": "navigation",
+              "blockingType": "HARD"
+            }
+          ]
+        },
+        {
+          "nodeId": "C",
+          "position": {
+            "x": 5,
+            "y": 6,
+            "z": 0
+          },
+          "orientation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "actions": [
+            {
+              "actionId": "drop_C",
+              "actionType": "drop",
+              "blockingType": "HARD"
+            }
+          ]
+        }
+      ]
+    },
+    "status": "pending",
+    "createdAt": "2025-12-09T16:12:13.218Z"
+  },
+  {
+    "taskId": "POC4",
+    "taskName": "task10",
+    "customerId": "infosys",
+    "mapName": "infosys map",
+    "priority": "high",
+    "order": {
+      "nodes": [
+        {
+          "nodeName": "Living Lab"
+        },
+        {
+          "nodeName": "Building 39"
+        }
+      ]
+    },
+    "status": "pending",
+    "createdAt": "2025-12-09T16:24:31.519Z"
+  },
+  {
+    "taskId": "POC5",
+    "taskName": "task12",
+    "customerId": "infosys",
+    "mapName": "infosys map",
+    "priority": "high",
+    "order": {
+      "nodes": [
+        {
+          "nodeId": "living lab"
+        },
+        {
+          "nodeId": "building 39"
+        }
+      ]
+    },
+    "status": "pending",
+    "createdAt": "2025-12-09T16:28:58.687Z"
+  },
+  {
+    "taskId": "POC6",
+    "taskName": "task101",
+    "customerId": "saket",
+    "mapName": "bangalore",
+    "priority": "high",
+    "order": {
+      "nodes": [
+        {
+          "name": "neeladri"
+        },
+        {
+          "name": "electronic city"
+        }
+      ]
+    },
+    "status": "pending",
+    "createdAt": "2025-12-09T16:32:37.296Z"
+  },
+  {
+    "taskId": "POC7",
+    "taskName": "task102",
+    "customerId": "saket",
+    "mapName": "bangalore",
+    "priority": "high",
+    "order": {
+      "nodes": [
+        {
+          "name": "neeladri"
+        },
+        {
+          "name": "bomanhalli"
+        }
+      ]
+    },
+    "status": "pending",
+    "createdAt": "2025-12-09T16:39:46.231Z"
+  },
+  {
+    "taskId": "POC8",
+    "taskName": "task104",
+    "customerId": "sakett",
+    "mapName": "bangalore",
+    "priority": "medium",
+    "order": {
+      "nodes": [
+        "neeladri",
+        "konapanna agrahara"
+      ]
+    },
+    "status": "pending",
+    "createdAt": "2025-12-09T16:45:30.529Z"
+  },
+  {
+    "taskId": "POC9",
+    "taskName": "task111",
+    "customerId": "saket",
+    "mapName": "bangalore",
+    "priority": "high",
+    "order": {
+      "nodes": [
+        "hosur road",
+        "majestic"
+      ]
+    },
+    "status": "pending",
+    "createdAt": "2025-12-09T17:09:45.904Z"
+  },
+  {
+    "taskId": "POC10",
+    "taskName": "task112",
+    "customerId": "saket",
+    "mapName": "bangalore",
+    "priority": "high",
+    "order": {
+      "nodes": [
+        "hosur road",
+        "majestic"
+      ]
+    },
+    "status": "pending",
+    "createdAt": "2025-12-09T17:12:32.515Z"
+  },
+  {
+    "taskId": "POC11",
+    "taskName": "abc",
+    "customerId": "saket",
+    "mapName": "bangalore",
+    "priority": "high",
+    "order": {
+      "nodes": [
+        "hosur road",
+        "majestic"
+      ]
+    },
+    "status": "pending",
+    "createdAt": "2025-12-09T20:10:54.688Z"
+  },
+  {
+    "taskId": "POC12",
+    "taskName": "uuu",
+    "customerId": "saket",
+    "mapName": "bangalore",
+    "priority": "high",
+    "order": {
+      "nodes": [
+        "hosur road",
+        "majestic"
+      ]
+    },
+    "status": "pending",
+    "createdAt": "2025-12-09T20:13:28.183Z"
+  },
+  {
+    "taskId": "POC13",
+    "taskName": "material_movement",
+    "customerId": "infosys",
+    "mapName": "infosys_bangalore_map",
+    "priority": "normal",
+    "order": {
+      "nodes": [
+        {
+          "actions": [
+            {
+              "actionId": "move",
+              "actionType": "navigation",
+              "blockingType": "none"
+            }
+          ],
+          "nodeId": "building 11",
+          "orientation": {
+            "w": 1,
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          }
+        },
+        {
+          "actions": [
+            {
+              "actionId": "move",
+              "actionType": "navigation",
+              "blockingType": "none"
+            }
+          ],
+          "nodeId": "building 55",
+          "orientation": {
+            "w": 1,
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "position": {
+            "x": 1,
+            "y": 1,
+            "z": 1
+          }
+        }
+      ]
+    },
+    "status": "pending",
+    "createdAt": "2025-12-09T20:23:33.478Z"
+  },
+  {
+    "taskId": "POC14",
+    "taskName": "Demo_task",
+    "customerId": "infosys",
+    "mapName": "infosys_bangalore_map",
+    "priority": "normal",
+    "order": {
+      "nodes": [
+        {
+          "actions": [
+            {
+              "actionId": "",
+              "actionType": "",
+              "blockingType": ""
+            }
+          ],
+          "nodeId": "",
+          "orientation": {
+            "w": 0,
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          }
+        }
+      ]
+    },
+    "status": "pending",
+    "createdAt": "2025-12-09T20:30:31.000Z"
+  },
+  {
+    "taskId": "POC15",
+    "taskName": "xyz",
+    "customerId": "saket",
+    "mapName": "bangalore",
+    "priority": "high",
+    "order": {
+      "nodes": [
+        "hosur road",
+        "majestic"
+      ]
+    },
+    "status": "pending",
+    "createdAt": "2025-12-09T20:40:58.664Z"
+  },
+  {
+    "taskId": "POC16",
+    "taskName": "rtr",
+    "customerId": "saket",
+    "mapName": "bangalore",
+    "priority": "high",
+    "order": {
+      "nodes": [
+        "hosur road",
+        "hhhhh"
+      ]
+    },
+    "status": "pending",
+    "createdAt": "2025-12-10T05:51:33.303Z"
+  },
+  {
+    "taskId": "POC17",
+    "taskName": "ooo",
+    "customerId": "saket",
+    "mapName": "bangalore",
+    "priority": "high",
+    "order": {
+      "nodes": [
+        "hosur road",
+        "majestic"
+      ]
+    },
+    "status": "pending",
+    "createdAt": "2025-12-10T05:52:56.594Z"
+  },
+  {
+    "taskId": "POC18",
+    "taskName": "s321",
+    "customerId": "saket",
+    "mapName": "bangalore",
+    "priority": "high",
+    "order": {
+      "nodes": [
+        {
+          "actions": [
+            {
+              "actionId": "move",
+              "actionType": "move",
+              "blockingType": "blocking"
+            }
+          ],
+          "nodeId": "hosur road",
+          "orientation": {
+            "w": 1,
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          }
+        },
+        {
+          "actions": [
+            {
+              "actionId": "stop",
+              "actionType": "stop",
+              "blockingType": "non-blocking"
+            }
+          ],
+          "nodeId": "majestic",
+          "orientation": {
+            "w": 1,
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "position": {
+            "x": 1,
+            "y": 1,
+            "z": 1
+          }
+        }
+      ]
+    },
+    "status": "pending",
+    "createdAt": "2025-12-10T09:23:33.759Z"
+  },
+  {
+    "taskId": "POC19",
+    "customerId": "infosys",
+    "mapName": "infosys_map",
+    "priority": "normal",
+    "order": {
+      "nodes": [
+        "building 11",
+        "building 55"
+      ]
+    },
+    "status": "pending",
+    "createdAt": "2025-12-10T09:27:54.751Z"
+  },
+  {
+    "taskId": "POC20",
+    "taskName": "hhhhhhh",
+    "customerId": "saket",
+    "mapName": "Bangalore",
+    "priority": "high",
+    "order": {
+      "nodes": [
+        {
+          "actions": [
+            {
+              "actionId": "move",
+              "actionType": "move",
+              "blockingType": "blocking"
+            }
+          ],
+          "nodeId": "Hosur Road",
+          "orientation": {
+            "w": 1,
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          }
+        },
+        {
+          "actions": [
+            {
+              "actionId": "stop",
+              "actionType": "stop",
+              "blockingType": "blocking"
+            }
+          ],
+          "nodeId": "Majestic",
+          "orientation": {
+            "w": 1,
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "position": {
+            "x": 1,
+            "y": 1,
+            "z": 1
+          }
+        }
+      ]
+    },
+    "status": "pending",
+    "createdAt": "2025-12-10T12:08:03.494Z"
+  },
+  {
+    "taskId": "POC21",
+    "taskName": "hJgF4",
+    "customerId": "infosys",
+    "mapName": "infosys_map",
+    "priority": "normal",
+    "order": {
+      "nodes": [
+        "building 11",
+        "building 55"
+      ]
+    },
+    "status": "pending",
+    "createdAt": "2025-12-10T12:13:14.465Z"
+  },
+  {
+    "taskId": "POC22",
+    "taskName": "aBc12",
+    "customerId": "infosys",
+    "mapName": "infosys_map",
+    "priority": "normal",
+    "order": {
+      "nodes": [
+        "USA",
+        "Canada"
+      ]
+    },
+    "status": "pending",
+    "createdAt": "2025-12-10T12:20:47.746Z"
+  },
+  {
+    "taskId": "POC23",
+    "taskName": "tEjKd",
+    "customerId": "infosys",
+    "mapName": "infosys_map",
+    "priority": "normal",
+    "order": {
+      "nodes": [
+        {
+          "actions": [
+            {
+              "actionId": "move",
+              "actionType": "transport",
+              "blockingType": "none"
+            }
+          ],
+          "nodeId": "building 11",
+          "orientation": {
+            "w": 1,
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          }
+        },
+        {
+          "actions": [
+            {
+              "actionId": "move",
+              "actionType": "transport",
+              "blockingType": "none"
+            }
+          ],
+          "nodeId": "building cafe",
+          "orientation": {
+            "w": 1,
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "position": {
+            "x": 1,
+            "y": 1,
+            "z": 1
+          }
+        }
+      ]
+    },
+    "status": "pending",
+    "createdAt": "2025-12-10T12:35:03.530Z"
+  },
+  {
+    "taskId": "POC24",
+    "taskName": "tk123",
+    "customerId": "infosys",
+    "mapName": "infosys_map",
+    "priority": "normal",
+    "order": {
+      "nodes": [
+        "a",
+        "b"
+      ]
+    },
+    "status": "pending",
+    "createdAt": "2025-12-10T15:48:58.043Z"
+  },
+  {
+    "taskId": "POC25",
+    "taskName": "kGyrt",
+    "customerId": "infosys",
+    "mapName": "infosys_map",
+    "priority": "normal",
+    "order": {
+      "nodes": [
+        "t",
+        "u"
+      ]
+    },
+    "status": "pending",
+    "createdAt": "2025-12-10T15:51:17.926Z"
+  },
+  {
+    "taskId": "POC26",
+    "taskName": "tk001",
+    "customerId": "infosys",
+    "mapName": "infosys_map",
+    "priority": "normal",
+    "order": {
+      "nodes": [
+        "a",
+        "b"
+      ]
+    },
+    "status": "pending",
+    "createdAt": "2025-12-10T15:51:56.687Z"
+  },
+  {
+    "taskId": "POC27",
+    "taskName": "Task1234",
+    "customerId": "infosys",
+    "mapName": "infosys_map",
+    "priority": "normal",
+    "order": {
+      "nodes": [
+        {
+          "actions": [
+            {
+              "actionId": "pickup",
+              "actionType": "pickup",
+              "blockingType": "blocking"
+            }
+          ],
+          "nodeId": "building 19",
+          "orientation": {
+            "w": 1,
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          }
+        },
+        {
+          "actions": [
+            {
+              "actionId": "dropoff",
+              "actionType": "dropoff",
+              "blockingType": "blocking"
+            }
+          ],
+          "nodeId": "building 39",
+          "orientation": {
+            "w": 1,
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "position": {
+            "x": 1,
+            "y": 1,
+            "z": 1
+          }
+        }
+      ]
+    },
+    "status": "pending",
+    "createdAt": "2025-12-10T16:08:13.574Z"
+  },
+  {
+    "taskId": "POC28",
+    "taskName": "aBc123d",
+    "customerId": "infosys",
+    "mapName": "infosys_map",
+    "priority": "normal",
+    "order": {
+      "nodes": [
+        "building 19",
+        "building 39"
+      ]
+    },
+    "status": "pending",
+    "createdAt": "2025-12-10T16:20:03.666Z"
+  },
+  {
+    "taskId": "POC29",
+    "taskName": "a1b2c3d",
+    "customerId": "infosys",
+    "mapName": "infosys_map",
+    "priority": "normal",
+    "order": {
+      "nodes": [
+        "building 19",
+        "building 39"
+      ]
+    },
+    "status": "pending",
+    "createdAt": "2025-12-10T16:20:35.991Z"
+  }
+]

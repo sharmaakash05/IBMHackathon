@@ -1,0 +1,314 @@
+openapi: 3.1.0
+info:
+  title: AMR Fleet Management API
+  description: API for creating and executing AMR transport tasks
+  version: 1.0.0
+servers:
+  - url: http://13.234.15.81:3002
+    description: Production server
+  - url: http://localhost:3002
+    description: Local development server
+
+paths:
+  /api/task/addTask:
+    post:
+      summary: Create a new AMR task
+      description: Creates a new transport task for an Autonomous Mobile Robot
+      operationId: addTask
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - order
+                - customerId
+                - priority
+                - mapName
+              properties:
+                taskName:
+                  type: string
+                  description: Unique identifier for the task
+                  example: "Transport_ZoneA_to_ZoneC"
+                customerId:
+                  type: string
+                  description: Customer identifier
+                  example: "CUST001"
+                priority:
+                  type: string
+                  enum: [high, medium, normal]
+                  description: Task priority level
+                  example: "high"
+                mapName:
+                  type: string
+                  description: Name of the map where task will execute
+                  example: "warehouse_map_1"
+                vehicleIds:
+                  type: array
+                  items:
+                    type: string
+                  description: List of vehicle IDs to assign (or "all")
+                  example: ["VEH1", "VEH2"]
+                order:
+                  type: object
+                  required:
+                    - nodes
+                  properties:
+                    nodes:
+                      type: array
+                      items:
+                        type: object
+                        required:
+                          - nodeId
+                          - position
+                          - orientation
+                          - actions
+                        properties:
+                          nodeId:
+                            type: string
+                            example: "node_pickup_1"
+                          position:
+                            type: object
+                            required:
+                              - x
+                              - y
+                              - z
+                            properties:
+                              x:
+                                type: number
+                                example: 2.5
+                              y:
+                                type: number
+                                example: 3.0
+                              z:
+                                type: number
+                                example: 0.0
+                          orientation:
+                            type: object
+                            required:
+                              - x
+                              - y
+                              - z
+                              - w
+                            properties:
+                              x:
+                                type: number
+                                example: 0.0
+                              y:
+                                type: number
+                                example: 0.0
+                              z:
+                                type: number
+                                example: 0.0
+                              w:
+                                type: number
+                                example: 1.0
+                          actions:
+                            type: array
+                            items:
+                              type: object
+                              required:
+                                - actionId
+                                - actionType
+                                - blockingType
+                              properties:
+                                actionId:
+                                  type: string
+                                  example: "pickup_action_1"
+                                actionType:
+                                  type: string
+                                  example: "pick"
+                                blockingType:
+                                  type: string
+                                  example: "HARD"
+      responses:
+        '201':
+          description: Task created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Task added successfully"
+                  result:
+                    type: object
+                    properties:
+                      taskId:
+                        type: string
+                        example: "POC1"
+                      taskName:
+                        type: string
+                        example: "Transport_ZoneA_to_ZoneC"
+                      customerId:
+                        type: string
+                        example: "CUST001"
+                      mapName:
+                        type: string
+                        example: "warehouse_map_1"
+                      priority:
+                        type: string
+                        example: "high"
+                      status:
+                        type: string
+                        example: "pending"
+                      createdAt:
+                        type: string
+                        format: date-time
+                        example: "2025-12-09T10:30:00.000Z"
+        '400':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Validation error(s): Invalid priority value. Allowed values are: high, medium, normal"
+        '409':
+          description: Task already exists
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Task already exists"
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Something went wrong"
+
+  /api/task/execute:
+    post:
+      summary: Execute a task by assigning a vehicle
+      description: Assigns an available AMR to execute the specified task
+      operationId: summonVehicle
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - taskName
+                - customerId
+              properties:
+                taskName:
+                  type: string
+                  description: Name of the task to execute
+                  example: "Transport_ZoneA_to_ZoneC"
+                customerId:
+                  type: string
+                  description: Customer identifier
+                  example: "CUST001"
+                scheduledDate:
+                  type: string
+                  format: date
+                  description: Optional scheduled date for task execution
+                  example: "2025-12-09"
+                scheduledTime:
+                  type: string
+                  description: Optional scheduled time for task execution
+                  example: "14:30:00"
+      responses:
+        '201':
+          description: Vehicle assigned successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Vehicle assigned successfully."
+                  assignedVehicle:
+                    type: string
+                    example: "VEHICLE123"
+                  taskName:
+                    type: string
+                    example: "Transport_ZoneA_to_ZoneC"
+                  customerId:
+                    type: string
+                    example: "CUST001"
+                  assignedAt:
+                    type: string
+                    format: date-time
+                    example: "2025-12-09T10:30:00.000Z"
+                  status:
+                    type: string
+                    example: "Initiated"
+        '400':
+          description: Missing required parameters
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Missing taskName or customerId"
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Something went wrong"
+
+  /api/robot/state:
+    get:
+      summary: Get robot state
+      description: Retrieves the current state of an AMR including position, battery, and task status
+      operationId: getRobotState
+      responses:
+        '200':
+          description: Robot state retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  customerId:
+                    type: string
+                    example: "virya"
+                  vehicleId:
+                    type: string
+                    example: "226e8"
+                  payload:
+                    type: object
+                    properties:
+                      battery_soc:
+                        type: integer
+                        example: 26
+                      brake_status:
+                        type: string
+                        example: "VLP_OBS,Localization,Heart_Beat"
+                      cart_status:
+                        type: integer
+                        example: 1
+                      localization_status:
+                        type: boolean
+                        example: true
+                      mapName:
+                        type: string
+                        example: "viryaMap"
+                      taskName:
+                        type: string
+                        example: "Test"
+                      sequence_status:
+                        type: string
+                        example: "completed"

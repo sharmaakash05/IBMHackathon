@@ -1,0 +1,247 @@
+
+openapi: 3.0.3
+info:
+  title: Robot State API
+  version: "1.0.0"
+  description: |
+    Simple API that returns the robot/AMR state (battery, task, localization, pose, etc.)
+    This spec models the raw JSON exactly as returned by http://13.234.15.81:3002/api/robot/state
+
+servers:
+  - url: http://13.234.15.81:3002
+    description: Robot state server (HTTP)
+
+paths:
+  /api/robot/state:
+    get:
+      summary: Get robot/AMR state
+      description: Returns the raw robot state payload without modifications.
+      operationId: getRobotState
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RobotStateResponse"
+              examples:
+                sample:
+                  value:
+                    customerId: "virya"
+                    vehicleId: "226e8"
+                    payload:
+                      battery_soc: 26
+                      brake_status: "VLP_OBS,Localization,Heart_Beat"
+                      cart_status: 1
+                      emg_status: 0
+                      gcart_status: null
+                      localization_status: true
+                      mapName: "viryaMap"
+                      narrowPath: null
+                      ndt_pose:
+                        orientation:
+                          w: 0.3685848632830441
+                          x: -0.10161127209190518
+                          y: 0.03817725844827523
+                          z: 0.9232349889816016
+                        position:
+                          x: -22.241914749145508
+                          y: -79.11270141601562
+                          z: -3.169316053390503
+                      nodeStates:
+                        - actions:
+                            - actionId: "navigate"
+                              actionType: "navigation"
+                              parameters:
+                                targetLocation: "FMS_Location_1"
+                              sequence_number: 1
+                              state: "completed"
+                              timestamp: "2025-09-04 15:30:26"
+                          nodeId: "U1"
+                          orientation:
+                            w: 0.9997834450096179
+                            x: -0.0011514769441499885
+                            y: -0.0135711843426165
+                            z: -0.01573404401563612
+                          position:
+                            x: 4.593762397766113
+                            y: -3.7141847610473633
+                            z: 0.14453381299972534
+                          released: true
+                          sequenceId: 0
+                          state: "completed"
+                      pathName: null
+                      path_data:
+                        available: false
+                        count: 0
+                        frame_id: null
+                        orientations: []
+                        positions: []
+                      sequence_status: "completed"
+                      taskInstanceId: "8e2dadaf-b17d-4262-a1b2-8acd267055b3"
+                      taskName: "Test"
+                      timestamp: "2025-09-05T09:09:18.237593"
+                      vehicle_alerts: null
+                      waypoint_obstacle_checking: false
+
+components:
+  schemas:
+    RobotStateResponse:
+      type: object
+      properties:
+        customerId:
+          type: string
+          description: Customer identifier
+        vehicleId:
+          type: string
+          description: Vehicle/AMR identifier
+        payload:
+          $ref: "#/components/schemas/Payload"
+
+    Payload:
+      type: object
+      properties:
+        battery_soc:
+          type: integer
+          description: Battery state-of-charge (%)
+          example: 26
+        brake_status:
+          type: string
+          nullable: true
+          description: Comma-separated brake/alert flags
+          example: "VLP_OBS,Localization,Heart_Beat"
+        cart_status:
+          type: integer
+          description: Cart status code (numeric)
+          example: 1
+        emg_status:
+          type: integer
+          description: Emergency status (0=no, 1=yes)
+          example: 0
+        gcart_status:
+          nullable: true
+          description: Additional cart status (may be null)
+        localization_status:
+          type: boolean
+          description: True if localized on map
+          example: true
+        mapName:
+          type: string
+          nullable: true
+          description: Current map name
+          example: "viryaMap"
+        narrowPath:
+          nullable: true
+          description: Narrow path info (may be null)
+        ndt_pose:
+          $ref: "#/components/schemas/NdtPose"
+        nodeStates:
+          type: array
+          items:
+            $ref: "#/components/schemas/NodeState"
+        pathName:
+          nullable: true
+        path_data:
+          $ref: "#/components/schemas/PathData"
+        sequence_status:
+          type: string
+          description: Task sequence status
+          example: "completed"
+        taskInstanceId:
+          type: string
+          description: Task instance UUID
+          example: "8e2dadaf-b17d-4262-a1b2-8acd267055b3"
+        taskName:
+          type: string
+          description: Task name
+          example: "Test "
+        timestamp:
+          type: string
+          description: ISO timestamp of latest update
+          example: "2025-09-05T09:09:18.237593"
+        vehicle_alerts:
+          nullable: true
+        waypoint_obstacle_checking:
+          type: boolean
+          description: Whether obstacle checking at waypoints is active
+          example: false
+
+    NdtPose:
+      type: object
+      properties:
+        orientation:
+          $ref: "#/components/schemas/Quaternion"
+        position:
+          $ref: "#/components/schemas/Position3D"
+
+    Quaternion:
+      type: object
+      properties:
+        w: { type: number }
+        x: { type: number }
+        y: { type: number }
+        z: { type: number }
+
+    Position3D:
+      type: object
+      properties:
+        x: { type: number }
+        y: { type: number }
+        z: { type: number }
+
+    NodeState:
+      type: object
+      properties:
+        actions:
+          type: array
+          items:
+            $ref: "#/components/schemas/Action"
+        nodeId:
+          type: string
+        orientation:
+          $ref: "#/components/schemas/Quaternion"
+        position:
+          $ref: "#/components/schemas/Position3D"
+        released:
+          type: boolean
+        sequenceId:
+          type: integer
+        state:
+          type: string
+
+    Action:
+      type: object
+      properties:
+        actionId:
+          type: string
+          example: "navigate"
+        actionType:
+          type: string
+          example: "navigation"
+        parameters:
+          type: object
+          additionalProperties: true
+          example:
+            targetLocation: "FMS_Location_1"
+        sequence_number:
+          type: integer
+          example: 1
+        state:
+          type: string
+          example: "completed"
+        timestamp:
+          type: string
+          example: "2025-09-04 15:30:26"
+
+    PathData:
+      type: object
+      properties:
+        available: { type: boolean }
+        count: { type: integer }
+        frame_id: { nullable: true }
+        orientations:
+          type: array
+          items: { $ref: "#/components/schemas/Quaternion" }
+        positions:
+          type: array
+          items: { $ref: "#/components/schemas/Position3D" }

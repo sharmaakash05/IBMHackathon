@@ -1,0 +1,109 @@
+=========================================================
+AGENTIC AI ORCHESTRATOR SPECIFICATION
+(For IBM watsonx.ai + IBM Orchestrate)
+=========================================================
+SECTION 1 — ORCHESTRATE WORKFLOW SPECIFICATION
+=========================================================
+
+TITLE: AMR_Agent_Workflow
+
+WORKFLOW STEPS:
+
+1. INPUT BLOCK
+- Name: task_instruction
+- Type: Manual Text Input
+- Description: User enters instruction such as "Move pallet from Zone A to Zone C."
+
+2. LLM BLOCK — GENERATE PLAN
+- Name: generate_plan
+- Model: Granite or Llama
+- Prompt Template: AMR_Agentic_Reasoning_Prompt
+- Input: task_instruction
+- Output Var: agent_plan (JSON)
+
+3. PARSE JSON BLOCK
+- Extract into variables:
+taskName = task_plan.task.taskName
+customerId = task_plan.task.customerId
+mapName = task_plan.task.mapName
+priority = task_plan.task.priority
+order = task_plan.task.order
+vehicleIds = task_plan.task.vehicleIds
+
+4. HTTP REQUEST BLOCK — CREATE TASK
+- Method: POST
+- URL: api/task/addTask
+- If response.valid == false → End workflow with LLM error message.
+- Body {
+  "taskName": "{taskName}",
+  "customerId": "{customerId}",
+  "mapName": "{mapName}",
+  "priority": "{priority}",
+  "order": {order},
+  "vehicleIds": "{vehicleIds}"
+}
+
+
+
+5. HTTP REQUEST BLOCK — ASSIGN TASK
+- Method: POST
+- URL: api/task/summonVehicle
+- Body:
+{
+  "taskName": "{taskName}",
+  "customerId": "{customerId}"
+}
+6. LOOP BLOCK — MONITOR ROBOT
+- Interval: Every 5 seconds
+- Inside Loop:
+HTTP REQUEST to {api_state}?robotId={robotId}
+Check:
+If status == "completed" → Break loop
+If isStuck == true OR battery < 20% → Go to replanning step
+
+
+
+7. LLM BLOCK — SUMMARY
+- Prompt: AMR_Task_Summary_Prompt
+- Input: telemetry + robot decisions
+- Output: summary_text
+
+8. OUTPUT BLOCK
+- Display summary_text to user.
+
+
+
+
+
+=========================================================
+SECTION 2 — VARIABLES USED IN ORCHESTRATE
+=========================================================
+
+// Input
+user_instruction
+
+// LLM Output
+task_plan (JSON)
+
+// Extracted Variables
+taskName
+customerId
+mapName
+priority
+order (nodes array)
+vehicleIds
+
+// API Responses
+taskCreated
+taskId
+vehicleAssigned
+assignedVehicle
+taskStatus
+tripDuration
+distanceTraveled
+
+// Final Output
+summary_text
+
+
+
