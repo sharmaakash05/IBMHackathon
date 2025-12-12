@@ -9,12 +9,12 @@
   <div id="root"></div>
   <div id="wxo-chat-root"></div>
   <script>
-    const API_KEY = "kIpXGhM2tFx01uJg5zaBB9e0boONsGFlVQ2VJGIEJQBG";
+    // const API_KEY = "kIpXGhM2tFx01uJg5zaBB9e0boONsGFlVQ2VJGIEJQBG";
     
     // Function to get IAM token from IBM Cloud
     async function getIAMToken() {
   try {
-    const response = await fetch('http://localhost:3001/api/token');
+    const response = await fetch('${window.APP_CONFIG.API_URL}/api/token');
     const data = await response.json();
     return data.access_token;
   } catch (error) {
@@ -27,16 +27,16 @@
       const token = await getIAMToken();
       
       window.wxOConfiguration = {
-        orchestrationID: "1065dee239e14260bb0fb7eca222264a_08d40cb2-d9c5-44b3-8e11-869e8e97957b",
-        hostURL: "https://ca-tor.watson-orchestrate.cloud.ibm.com",
+        orchestrationID: "window.APP_CONFIG.ORCHESTRATION_ID",
+        hostURL: "window.APP_CONFIG.HOST_URL",
         rootElementID: "wxo-chat-root",
         deploymentPlatform: "ibmcloud",
-        crn: "crn:v1:bluemix:public:watsonx-orchestrate:ca-tor:a/1065dee239e14260bb0fb7eca222264a:08d40cb2-d9c5-44b3-8e11-869e8e97957b::",
+        crn: "window.APP_CONFIG.CRN",
         authToken: token, // Provide token upfront
         openOnLoad: true,
         chatOptions: {
-          agentId: "f2045a6d-fb12-4486-aad4-8c80ee5fc3d8",
-          agentEnvironmentId: "e35ad620-adde-4f4f-8106-36e07d7c0d0e",
+          agentId: "window.APP_CONFIG.AGENT_ID",
+          agentEnvironmentId: "window.APP_CONFIG.AGENT_ENV_ID",
           openOnLoad: true,
         },
         // Refresh token when needed
