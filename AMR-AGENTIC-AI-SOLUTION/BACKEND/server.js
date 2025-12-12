@@ -11,10 +11,11 @@ app.use((req, res, next) => {
 
 app.use(cors()); // Enable CORS for all routes
 app.use(express.json());
-const API_KEY = 'kIpXGhM2tFx01uJg5zaBB9e0boONsGFlVQ2VJGIEJQBG';
+const API_KEY = process.env.IBM_API_KEY
+const IBM_TOKEN_URL=process.env.IBM_TOKEN_URL
 
 app.get('/api/token', async (req, res) => {
-  const response = await fetch('https://iam.cloud.ibm.com/identity/token', {
+  const response = await fetch(IBM_TOKEN_URL, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
